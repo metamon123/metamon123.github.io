@@ -2,5 +2,5 @@
 Personal blog, powered by Hexo
 
 Available URLs are  
-- metamon123.github.io  
-- blog.metamon.xyz  
+- https://metamon123.github.io  
+- https://blog.metamon.xyz  
