@@ -343,7 +343,6 @@ body .h2 {
 }
 body h3 {
   color: #383838;
-  text-decoration: underline;
   font-weight: bold;
   font-size: 0.9rem;
 }
@@ -365,7 +364,11 @@ body h6 {
   margin-bottom: 0.5rem;
 }
 body hr {
-  border: 1px dashed #8c8c8c;
+  background-color: #000;
+  border: 0;
+  height: 0.1em;
+  margin: 24px 0;
+  padding: 0;
 }
 body strong {
   font-weight: bold;
