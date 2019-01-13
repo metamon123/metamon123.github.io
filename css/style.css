@@ -339,13 +339,15 @@ body .h2 {
   text-transform: none;
   letter-spacing: normal;
   font-weight: bold;
-  font-size: 1.2rem;
-  border-bottom: 1px dashed #8c8c8c;
+  font-size: 1.4rem;
 }
 body h3 {
+  position: relative;
   color: #383838;
-  font-weight: bold;
-  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
 }
 body h4,
 body h5,
@@ -357,7 +359,6 @@ body h6 {
   font-weight: normal;
   font-size: 0.9rem;
 }
-body h3,
 body h4,
 body h5,
 body h6 {
@@ -1068,12 +1069,30 @@ article header .author {
 article header .postdate {
   display: inline;
 }
+article .content h2 {
+  border-bottom: 1px dashed #8c8c8c;
+}
 article .content h2:before {
+  position: absolute;
+  left: -1rem;
+  color: #2bbc8a;
+  content: "#";
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+article .content h3 {
+  margin-right: auto;
+  padding: 0.1rem;
+  padding-right: 0.7rem;
+  padding-left: 0.7rem;
+  border: 1px dashed #8c8c8c;
+}
+article .content h3:before {
   position: absolute;
   top: 0px;
   left: -1rem;
   color: #2bbc8a;
-  content: "#";
+  content: "$";
   font-weight: bold;
   font-size: 1.2rem;
 }
@@ -1110,53 +1129,45 @@ article .content .video-container embed {
 article .content blockquote {
   margin: 1rem 10px;
   padding: 0.5em 10px;
-  background: inherit;
-  color: #2bbc8a;
+  background: #f0f0f0;
   quotes: "\201C" "\201D" "\2018" "\2019";
-  font-weight: bold;
+  font-weight: 300;
+  word-wrap: break-word;
 }
 article .content blockquote p {
   margin: 0;
 }
-article .content blockquote:before {
-  margin-right: 0.25em;
-  color: #2bbc8a;
-  content: "\201C";
-  vertical-align: -0.4em;
-  font-size: 2em;
-  line-height: 0.1em;
-}
-article .content blockquote footer {
+footer {
   margin: line-height 0;
   color: #666;
   font-size: 11px;
 }
-article .content blockquote footer a {
+footer a {
   background-image: linear-gradient(transparent, transparent 5px, #666 5px, #666);
   color: #666;
 }
-article .content blockquote footer a:hover {
+footer a:hover {
   background-image: linear-gradient(transparent, transparent 4px, #858585 4px, #858585);
   color: #858585;
 }
-article .content blockquote footer cite:before {
+footer cite:before {
   padding: 0 0.5em;
   content: "—";
 }
-article .content .pullquote {
+.pullquote {
   margin: 0;
   width: 45%;
   text-align: left;
 }
-article .content .pullquote.left {
+.pullquote.left {
   margin-right: 1em;
   margin-left: 0.5em;
 }
-article .content .pullquote.right {
+.pullquote.right {
   margin-right: 0.5em;
   margin-left: 1em;
 }
-article .content .caption {
+.caption {
   position: relative;
   display: block;
   margin-top: 0.5em;

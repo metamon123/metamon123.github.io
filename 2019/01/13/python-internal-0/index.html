@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang=KR>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Investigating cpython internal, just for fun">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python-internal-0">
+<meta property="og:url" content="http://yoursite.com/2019/01/13/python-internal-0/index.html">
+<meta property="og:site_name" content="metamon chronicle">
+<meta property="og:description" content="Investigating cpython internal, just for fun">
+<meta property="og:locale" content="KR">
+<meta property="og:updated_time" content="2019-01-13T13:40:02.499Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python-internal-0">
+<meta name="twitter:description" content="Investigating cpython internal, just for fun">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="../../../../images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="../../../../images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="../../../../images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>python-internal-0</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="../../../../css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="../../../../css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="../../../../index.html">Home</a></li>
+         
+          <li><a href="../../../../about/">About</a></li>
+         
+          <li><a href="../../../../archives/">Writing</a></li>
+         
+          <li><a href="../../../../categories/">categories</a></li>
+         
+          <li><a href="../../../../tags/">tags</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="../../05/ghost-kingdom-writeup/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <!--<li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>-->
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <!--<span id="i-share" class="info" style="display:none;">Share post</span>-->
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/01/13/python-internal-0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/01/13/python-internal-0/&text=python-internal-0"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/01/13/python-internal-0/&title=python-internal-0"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/01/13/python-internal-0/&is_video=false&description=python-internal-0"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=python-internal-0&body=Check out this article: http://yoursite.com/2019/01/13/python-internal-0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/01/13/python-internal-0/&title=python-internal-0"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/01/13/python-internal-0/&title=python-internal-0"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/01/13/python-internal-0/&title=python-internal-0"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/01/13/python-internal-0/&title=python-internal-0"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/01/13/python-internal-0/&name=python-internal-0&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Python-internal-structure-알아보기"><span class="toc-number">1.</span> <span class="toc-text">Python internal structure 알아보기</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Intro"><span class="toc-number">1.1.</span> <span class="toc-text">Intro</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#목표-속내"><span class="toc-number">1.1.1.</span> <span class="toc-text">목표(속내)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#참고-링크"><span class="toc-number">1.1.2.</span> <span class="toc-text">참고 링크</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cpython-internal"><span class="toc-number">1.2.</span> <span class="toc-text">cpython internal</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-객체들의-기본적인-구조"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 객체들의 기본적인 구조</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        python-internal-0
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="name">metamon chronicle</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-01-13T11:48:22.000Z" itemprop="datePublished">2019-01-13</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="../../../../categories/study/">study</a> › <a class="category-link" href="../../../../categories/study/python/">python</a> › <a class="category-link" href="../../../../categories/study/python/cpython/">cpython</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="../../../../tags/python/">python</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="Python-internal-structure-알아보기"><a href="#Python-internal-structure-알아보기" class="headerlink" title="Python internal structure 알아보기"></a>Python internal structure 알아보기</h1><h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>CTF 에서 <code>pyjail</code> 이라고 불리는 분야의 문제가 나올 때가 가끔 있습니다. <code>pyjail</code> 이란, 제한된 종류의 파이썬 코드를 실행할 수 있는 환경에서, 코드가 실행되는 서버에서 임의의 명령어를 실행하는 류의 간단한 게임을 말합니다. </p>
+<p>예를 들면, import 를 못하는 상황에서 os 모듈의 system 함수를 실행하고 싶을 때,</p>
+<blockquote>
+<p>{x.__name__ : x for x in [].__class__.__base__.__subclasses__()}[‘_Printer’].__init__.__globals__[‘sys’].modules[‘os’].system(‘ls’)</p>
+</blockquote>
+<p>로 system(‘ls’) 를 실행하여 서버에서 ls 명령어를 실행할 수 있습니다.</p>
+<p>pyjail 을 하다보면 파이썬에서 사용되는 opcode 나 import 의 동작 원리 등, 일반적이라면 알 일도 없고 알 필요도 없을 내용들을 접하게 됩니다. 그런 것들을 접하면 접할 수록 파이썬이 내부적으로 어떻게 구현되어있는지 정말 궁금해집니다.</p>
+<p>그래서 이번 방학 동안에는 python 의 c 구현체인 cpython 코드를 보면서 파이썬의 내부 구조를 대충이나마 이해해보려고 하고, 이를 글로도 정리해보려고 합니다.</p>
+<h3 id="목표-속내"><a href="#목표-속내" class="headerlink" title="목표(속내)"></a>목표(속내)</h3><ul>
+<li><p>파이썬에서의 객체들이 어떻게 관리되는지를 이해한다.</p>
+<blockquote>
+<p>“123” 같은 문자열 literal 은 어떻게 관리될까?<br>글자 개수를 파서가 판단하고, 그만큼 malloc 해서 그 버퍼를 기록한 뒤, 종료 될 때 free 하지 않을까?</p>
+</blockquote>
+<ul>
+<li>개인적인 궁금증 : PEP 498 에서 추가된 f-string 의 적용 방식</li>
+</ul>
+</li>
+<li><p>파이썬에서의 변수들이 어떻게 관리되는지를 이해한다.</p>
+</li>
+<li><p>파이썬에서의 built-in functions, user-defined functions 들이 어떠한 구조체에서 관리되고, 어떠한 형태로 호출이 되는지 (c 코드 / python 코드 상관 X) 를 이해한다.</p>
+<ul>
+<li><code>Include/ceval.h</code> 에서 <code>PyEval_GetBuiltins, PyEval_GetGlobals, PyEval_GetLocals</code> 를 발견, 좋은 참고자료가 될 듯</li>
+</ul>
+</li>
+<li><p>모듈이 import 되는 방식을 이해한다.</p>
+<ul>
+<li>python sandbox 에서 자주 타겟이 되는 os.py 가 import 되어 사용되는 과정을 이해하고, 이를 최대한 방지할 수 있는 sandboxing 방법을 고안한다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="참고-링크"><a href="#참고-링크" class="headerlink" title="참고 링크"></a>참고 링크</h3><ul>
+<li>원본 소스 코드 : <a href="https://github.com/python/cpython" target="_blank" rel="noopener">https://github.com/python/cpython</a></li>
+<li><a href="https://medium.com/@cookatrice/why-python-is-slow-looking-under-the-hood-7126baf936d7" target="_blank" rel="noopener"><strong>Why python is Slow:Looking Under the Hood - 한글 번역</strong></a></li>
+<li><a href="https://mingrammer.com/translation-cpython-internals-arbitrary-precision-integer-implementation/" target="_blank" rel="noopener">파이썬 Arbitrary-precision integer 의 구현 - 한글 번역</a></li>
+</ul>
+<h2 id="cpython-internal"><a href="#cpython-internal" class="headerlink" title="cpython internal"></a>cpython internal</h2><h3 id="1-객체들의-기본적인-구조"><a href="#1-객체들의-기본적인-구조" class="headerlink" title="1. 객체들의 기본적인 구조"></a>1. 객체들의 기본적인 구조</h3><p>cpython 의 <code>Include/object.h</code> 를 보면, 파이썬에서 사용되는 객체들의 기본적인 틀을 확인할 수 있다.</p>
+<p><code>Include/listobject.h</code>, <code>Include/longobject.h</code> 등, 객체 종류 별로 정의되어있는 직접적인 구조는 따로 있지만, 이들 대부분이 <code>PyObject_VAR_HEAD</code> 라는, <code>Include/object.h</code> 에 정의된 C Macro 를 포함하고 있기 때문에, 우선은 <code>object.h</code> 를 먼저 훑어보도록 하자.</p>
+<p><code>Include/object.h</code> 에서 가장 먼저 눈에 들어온 struct 들은 다음과 같다.</p>
+<ol>
+<li>PyObject</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Nothing is actually declared to be a PyObject, but every pointer to</span></span><br><span class="line"><span class="comment"> * a Python object can be cast to a PyObject*.  This is inheritance built</span></span><br><span class="line"><span class="comment"> * by hand.  Similarly every pointer to a variable-size Python object can,</span></span><br><span class="line"><span class="comment"> * in addition, be cast to PyVarObject*. */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">object</span> &#123;</span></span><br><span class="line">    _PyObject_HEAD_EXTRA (struct _object *_ob_next;struct _object *_ob_prev;) </span><br><span class="line">    <span class="comment">// 일반적인 파이썬에서는 사용되지 않는다고 함. (Py_TRACE_REFS 옵션에서만 적용)</span></span><br><span class="line">    Py_ssize_t ob_refcnt;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">typeobject</span> *<span class="title">ob_type</span>;</span></span><br><span class="line">&#125; PyObject;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>_PyObject_HEAD_EXTRA  : <ul>
+<li>파이썬 자체에서 생성되어있는 object 들을 linked list 에 넣어서 관리하기 위한 것으로 예상된다.</li>
+</ul>
+</li>
+<li>ob_refcnt : <ul>
+<li>object 들을 garbage collecting 할 때 참고하는 파라미터이다.</li>
+<li>파이썬에서의 garbage collecting 에 대해서는 <a href="https://winterj.me/python-gc/" target="_blank" rel="noopener">정겨울</a> 님의 블로그 포스팅을 참조</li>
+</ul>
+</li>
+<li><strong>ob_type</strong> :<ul>
+<li>본격적인 객체에 대한 정보는 struct _typeobject * ( == PyTypeObject * ) 에 전부 들어있을 것으로 예상된다.</li>
+</ul>
+</li>
+<li>PyObject 자체는 별 것 없고, ob_type 에 대부분의 내용이 들어있을 것 같으니 대충 넘어가도 좋을 것 같다.</li>
+</ul>
+<ol start="2">
+<li>PyVarObject (주로 PyObject_VAR_HEAD 라는 Macro 로 쓰임)</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* PyObject_VAR_HEAD defines the initial segment of all variable-size</span></span><br><span class="line"><span class="comment"> * container objects.  These end with a declaration of an array with 1</span></span><br><span class="line"><span class="comment"> * element, but enough space is malloc'ed so that the array actually</span></span><br><span class="line"><span class="comment"> * has room for ob_size elements.  Note that ob_size is an element count,</span></span><br><span class="line"><span class="comment"> * not necessarily a byte count. */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PyObject_VAR_HEAD      PyVarObject ob_base;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    PyObject ob_base;</span><br><span class="line">    Py_ssize_t ob_size; <span class="comment">/* Number of items in variable part */</span></span><br><span class="line">&#125; PyVarObject;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>PyVarObject 는 어떤 객체가 몇 개의 연속된 PyObject 를 갖고 있는 지를 저장하는 구조인 것 같다.</li>
+<li>PyVarObject 는 PyObject_VAR_HEAD 라는 C Macro 로 잘 사용되고, 주석에 따르면 모든 variable-size container objects (python list, tuple, long integer 등) 이 이를 갖고 있다고 한다. <ul>
+<li>여기서의 variable-size 는 mutable 하다는 뜻이 아니라 여러 크기가 존재할 수 있다는 의미이고, dictionary 와 set 같은 경우는 PyObject_VAR_HEAD 은 없지만 자체적으로 ob_size 를 갖고 있기도 하다.</li>
+</ul>
+</li>
+<li>PyObject 하고 비슷한 맥락으로 대충 넘어가도 좋을 것 같다.</li>
+</ul>
+<ol start="3">
+<li>PyTypeObject</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">typeobject</span> &#123;</span></span><br><span class="line">    PyObject_VAR_HEAD (PyVarObject ob_base;)</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *tp_name; <span class="comment">/* For printing, in format "&lt;module&gt;.&lt;name&gt;" */</span></span><br><span class="line">    Py_ssize_t tp_basicsize, tp_itemsize; <span class="comment">/* For allocation */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Methods to implement standard operations */</span></span><br><span class="line"></span><br><span class="line">    destructor tp_dealloc;</span><br><span class="line">    printfunc tp_print;</span><br><span class="line">    getattrfunc tp_getattr;</span><br><span class="line">    setattrfunc tp_setattr;</span><br><span class="line">    PyAsyncMethods *tp_as_async; <span class="comment">/* formerly known as tp_compare (Python 2)</span></span><br><span class="line"><span class="comment">                                    or tp_reserved (Python 3) */</span></span><br><span class="line">    reprfunc tp_repr;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Method suites for standard classes */</span></span><br><span class="line"></span><br><span class="line">    PyNumberMethods *tp_as_number;</span><br><span class="line">    PySequenceMethods *tp_as_sequence;</span><br><span class="line">    PyMappingMethods *tp_as_mapping;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* More standard operations (here for binary compatibility) */</span></span><br><span class="line"></span><br><span class="line">    hashfunc tp_hash;</span><br><span class="line">    ternaryfunc tp_call;</span><br><span class="line">    reprfunc tp_str;</span><br><span class="line">    getattrofunc tp_getattro;</span><br><span class="line">    setattrofunc tp_setattro;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Functions to access object as input/output buffer */</span></span><br><span class="line">    PyBufferProcs *tp_as_buffer;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Flags to define presence of optional/expanded features */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> tp_flags;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *tp_doc; <span class="comment">/* Documentation string */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Assigned meaning in release 2.0 */</span></span><br><span class="line">    <span class="comment">/* call function for all accessible objects */</span></span><br><span class="line">    traverseproc tp_traverse;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* delete references to contained objects */</span></span><br><span class="line">    inquiry tp_clear;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Assigned meaning in release 2.1 */</span></span><br><span class="line">    <span class="comment">/* rich comparisons */</span></span><br><span class="line">    richcmpfunc tp_richcompare;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* weak reference enabler */</span></span><br><span class="line">    Py_ssize_t tp_weaklistoffset;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Iterators */</span></span><br><span class="line">    getiterfunc tp_iter;</span><br><span class="line">    iternextfunc tp_iternext;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Attribute descriptor and subclassing stuff */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">PyMethodDef</span> *<span class="title">tp_methods</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">PyMemberDef</span> *<span class="title">tp_members</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">PyGetSetDef</span> *<span class="title">tp_getset</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">typeobject</span> *<span class="title">tp_base</span>;</span></span><br><span class="line">    PyObject *tp_dict;</span><br><span class="line">    descrgetfunc tp_descr_get;</span><br><span class="line">    descrsetfunc tp_descr_set;</span><br><span class="line">    Py_ssize_t tp_dictoffset;</span><br><span class="line">    initproc tp_init;</span><br><span class="line">    allocfunc tp_alloc;</span><br><span class="line">    newfunc tp_new;</span><br><span class="line">    freefunc tp_free; <span class="comment">/* Low-level free-memory routine */</span></span><br><span class="line">    inquiry tp_is_gc; <span class="comment">/* For PyObject_IS_GC */</span></span><br><span class="line">    PyObject *tp_bases;</span><br><span class="line">    PyObject *tp_mro; <span class="comment">/* method resolution order */</span></span><br><span class="line">    PyObject *tp_cache;</span><br><span class="line">    PyObject *tp_subclasses;</span><br><span class="line">    PyObject *tp_weaklist;</span><br><span class="line">    destructor tp_del;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Type attribute cache version tag. Added in version 2.6 */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> tp_version_tag;</span><br><span class="line"></span><br><span class="line">    destructor tp_finalize;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> COUNT_ALLOCS</span></span><br><span class="line">    <span class="comment">/* these must be last and never explicitly initialized */</span></span><br><span class="line">    Py_ssize_t tp_allocs;</span><br><span class="line">    Py_ssize_t tp_frees;</span><br><span class="line">    Py_ssize_t tp_maxalloc;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">typeobject</span> *<span class="title">tp_prev</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">typeobject</span> *<span class="title">tp_next</span>;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125; PyTypeObject;</span><br></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="../../../../index.html">Home</a></li>
+         
+          <li><a href="../../../../about/">About</a></li>
+         
+          <li><a href="../../../../archives/">Writing</a></li>
+         
+          <li><a href="../../../../categories/">categories</a></li>
+         
+          <li><a href="../../../../tags/">tags</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Python-internal-structure-알아보기"><span class="toc-number">1.</span> <span class="toc-text">Python internal structure 알아보기</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Intro"><span class="toc-number">1.1.</span> <span class="toc-text">Intro</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#목표-속내"><span class="toc-number">1.1.1.</span> <span class="toc-text">목표(속내)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#참고-링크"><span class="toc-number">1.1.2.</span> <span class="toc-text">참고 링크</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cpython-internal"><span class="toc-number">1.2.</span> <span class="toc-text">cpython internal</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-객체들의-기본적인-구조"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 객체들의 기본적인 구조</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/01/13/python-internal-0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/01/13/python-internal-0/&text=python-internal-0"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/01/13/python-internal-0/&title=python-internal-0"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/01/13/python-internal-0/&is_video=false&description=python-internal-0"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=python-internal-0&body=Check out this article: http://yoursite.com/2019/01/13/python-internal-0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/01/13/python-internal-0/&title=python-internal-0"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/01/13/python-internal-0/&title=python-internal-0"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/01/13/python-internal-0/&title=python-internal-0"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/01/13/python-internal-0/&title=python-internal-0"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/01/13/python-internal-0/&name=python-internal-0&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Dongpyeong Seo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="../../../../index.html">Home</a></li>
+         
+          <li><a href="../../../../about/">About</a></li>
+         
+          <li><a href="../../../../archives/">Writing</a></li>
+         
+          <li><a href="../../../../categories/">categories</a></li>
+         
+          <li><a href="../../../../tags/">tags</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="../../../../lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="../../../../lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="../../../../lib/jquery/jquery.min.js"></script>
+<script src="../../../../lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="../../../../js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'metamon';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
