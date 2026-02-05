@@ -78,6 +78,11 @@
       @apply border-s-accent/80 wrap-break-word opacity-80;
     }
 
+    blockquote p::before,
+    blockquote p::after {
+      content: none;
+    }
+
     details {
       @apply block rounded-md border border-border bg-muted/35 px-4 py-3 text-foreground;
     }
