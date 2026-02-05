@@ -17,13 +17,21 @@ title: "About"
 
 ## Highlighted Experiences
 
-🛡️ KAIST GoN (정보보안 및 해킹 동아리) 에서 활동하며 웹해커로서 국내외 CTF(e.g., [링크1](https://www.boannews.com/media/view.asp?idx=83103), [링크2](https://www.boannews.com/media/view.asp?idx=78163))를 즐기고, 내부 대회와 교육에 참가 및 기여하며 정보보안에 대한 지식과 경험을 쌓았습니다.
+🛡️ KAIST GoN (정보보안 및 해킹 동아리)
+- 키워드: 웹 보안, CTF, 모의해킹, 교육
+- 내부 대회와 교육에 참가 및 기여하며 정보보안에 대한 지식을 습득했습니다.
+- 웹해커로서 국내외 CTF(e.g., 오프라인 입상: [링크1](https://www.boannews.com/media/view.asp?idx=83103), [링크2](https://www.boannews.com/media/view.asp?idx=78163))에 참여했습니다.
+- 회사와 학교에서의 모의해킹 활동을 통해 현업과 연관된 경험을 쌓았습니다.
 
-🌐 [KAIST NetS&P](https://netsp.kaist.ac.kr) (네트워크 보안) 연구실에서 석사과정을 지내며, 하늘을 가득채운 [스타링크 위성](https://satellitemap.space/)으로부터 내려오는 위성 신호의 보안을 블랙박스로 연구했습니다.
+🌐 [KAIST NetS&P](https://netsp.kaist.ac.kr) (네트워크 보안) 연구실
 - 키워드: 저궤도 위성, 스타링크, 안테나, Software-defined radio (SDR), RF, 물리계층, 신호처리
+- 2년 간의 석사과정 동안, 하늘을 가득채운 [스타링크 위성](https://satellitemap.space/)으로부터 내려오는 위성 신호의 보안을 블랙박스로 연구했습니다. (프로젝트 오너)
 
-🧑‍💻 [크래프톤](https://www.krafton.com/)에서 2년간 소프트웨어 엔지니어로서 게임<배틀그라운드>의 개발 업무를 수행하며, 대규모 서비스의 인프라 구조나 팀 간의 협업 과정을 이해하고 개선했습니다.
+🧑‍💻 [크래프톤](https://www.krafton.com/)
 - 키워드: 백엔드, Micro Service Architecture (MSA), 인벤토리, 상점, 멀티플랫폼 지원 (Xbox, PS4, ...)
+- 2년간 소프트웨어 엔지니어로서 게임<배틀그라운드>의 개발 업무를 수행했습니다.
+- 대규모 서비스의 인프라 구조나 팀 간의 협업 과정을 이해하고 개선했습니다.
+
 
 ## Education
 
