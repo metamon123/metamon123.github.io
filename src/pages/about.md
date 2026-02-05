@@ -3,25 +3,48 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-정보보안과 백엔드, 인프라 개발에 관심이 있는 서동평입니다.
+정보보안과 백엔드 개발, 그리고 인프라에 관심이 있는 서동평입니다.
 
-🛡️ KAIST GoN 에서 활동하며 웹해킹을 공부하고 국내외 CTF 에 참가하기도 했습니다.
+학부 때 보안 동아리에서 웹 보안을 위주로 공부하다가, 회사에서 2년간 개발자로 일하고서는, 석사과정에서 네트워크 보안과 위성 보안을 연구했습니다.
 
-🛰️🔒 최근에는 [KAIST NetS&P](https://netsp.kaist.ac.kr) Lab (Network Security & Privacy) 에서 석사과정 동안, 하늘을 가득채운 [스타링크 위성](https://satellitemap.space/)으로부터 내려오는 위성 신호의 보안을 연구했습니다.
-- 키워드: 저궤도 위성, 스타링크, Software-defined radio (SDR), RF, 물리계층, 신호처리, 안테나
+웹 보안을 주력으로 시스템 해킹, 네트워크 보안, 암호학, 그리고 서비스 개발 전반을 경험해왔습니다.
 
-🧑‍💻 이전에는 크래프톤에서 2년간 소프트웨어 엔지니어로서 배틀그라운드 관련 개발 업무를 수행했습니다.
-- 키워드: 백엔드, Micro Service Architecture (MSA), 인벤토리, 상점, 멀티플랫폼 지원 (Xbox, PS4, Stadia)
+1. 웹 보안 중에서는 **클라이언트 측 취약점**, 즉 방대한 브라우저 기능들 (DOM, Cookie, SOP, CSP, Content Sniffing, Extension, ...) 에서 주로 야기되는 웹 취약점들을 CTF 나 모의해킹에서 많이 다뤄왔습니다.
+2. 회사에서의 서비스 개발 및 협업 경험을 계기로 **개발 단계에서의 웹 보안 분석 자동화 (정적/동적 분석)** 에도 관심을 갖게 되었습니다.
+3. 최근에는 석사 때의 위성 통신 보안 연구를 계기로 SDR 을 접하게 되어 **무선 보안**도 공부해보고 있습니다.
+
+## Highlighted Experiences
+
+🛡️ KAIST GoN (정보보안 및 해킹 동아리) 에서 활동하며 웹해커로서 국내외 CTF(e.g., [링크1](https://www.boannews.com/media/view.asp?idx=83103), [링크2](https://www.boannews.com/media/view.asp?idx=78163))를 즐기고, 내부 대회와 교육에 참가 및 기여하며 정보보안에 대한 지식과 경험을 쌓았습니다.
+
+🌐 [KAIST NetS&P](https://netsp.kaist.ac.kr) (네트워크 보안) 연구실에서 석사과정을 지내며, 하늘을 가득채운 [스타링크 위성](https://satellitemap.space/)으로부터 내려오는 위성 신호의 보안을 블랙박스로 연구했습니다.
+- 키워드: 저궤도 위성, 스타링크, 안테나, Software-defined radio (SDR), RF, 물리계층, 신호처리
+
+🧑‍💻 [크래프톤](https://www.krafton.com/)에서 2년간 소프트웨어 엔지니어로서 게임<배틀그라운드>의 개발 업무를 수행하며, 대규모 서비스의 인프라 구조나 팀 간의 협업 과정을 이해하고 개선했습니다.
+- 키워드: 백엔드, Micro Service Architecture (MSA), 인벤토리, 상점, 멀티플랫폼 지원 (Xbox, PS4, ...)
 
 ## Education
 
 - \[석사\] KAIST 정보보호대학원, GPA 3.88/4.3 (2024.03 - 2026.02)
 - \[학사\] KAIST 전산학부, GPA 3.84/4.3, Cum Laude (2016.03 - 2023.08)
 
+## Research Experience
+
+🛰️ **스타링크 저궤도 위성의 하향링크 분석** (석사 프로젝트, 2024.03 - 2025.12)
+
+- **연구 내용**: 블랙박스이고 장비 요구사항이 매우 까다로워 해독이 힘든 스타링크 위성 신호를 RF 계층에서 분석하여 얻을 수 있는 인사이트를 조사했습니다. 서비스의 높은 중요도에 걸맞지 않게 선행 연구가 너무나 부족한 스타링크의 보안에 기여하려 했습니다.
+  - 낯선 분야를 끈기 있게 파보는 경험을 했습니다.
+  - 참고할 선행 연구가 전무했던만큼, 실험과 관찰 결과에 기반하여 계속해서 feasibility 를 가늠하고 연구 방향을 조정해가는 경험을 했습니다.
+- **맡은 역할**: 3인팀의 프로젝트 오너이자 1저자였습니다. 배경조사부터 안테나 환경 구축, RF 신호 수신, 결과 분석, 그리고 논문 작업까지, 연구의 전과정을 주도적으로 진행했습니다.
+- **연구 성과**: NDSS 워크샵인 SpaceSec'26 에 1저자 논문이 accept 되었습니다. (다만, 보안상의 이유로 논문 개제는 철회했습니다.)
+
 ## Work Experience
 
+- `Presto Labs` - Penetration Tester 계약직 (2022.06 - 2022.08)
+  - Presto Labs 의 가상화폐 거래소인 Flipster 에 대한 모의해킹 수행 (웹 취약점 위주)
+  - \+ 회사와 모의해킹팀(5인) 간의 소통 및 협의 진행
 - `Unnoted` - Software Development Intern (2021.12 - 2022.02)
-  - HFT 트레이딩 인프라 관리
+  - High Frequency Trading 인프라 관리
     - 키워드: C++
   - 인프라 네트워크 모니터링 툴 개발
 - `Krafton` (& `PUBG Corporation`) - Software Engineer (2019.10 - 2021.10)
@@ -31,7 +54,7 @@ title: "About"
     - 키워드: TypeScript, Nest.js, Vue.js, ElasticSearch, DynamoDB, S3, Slack API
 - `TEEware` - Software Development Intern (2018.12 - 2019.02)
   - 분산 환경에서의 전자 서명 알고리즘 검증 및 구현
-    - 키워드: C, threshold-ECDSA
+    - 키워드: C, Threshold ECDSA
   - 이더리움, XRP 와 연동되는 암호화폐 지갑 API 구현
     - 키워드: Node.js
 
