@@ -94,6 +94,62 @@
       @apply mt-3;
     }
 
+    .admonition {
+      margin: 1.5rem 0;
+      border-radius: 0.75rem;
+      padding: 1rem 1.25rem;
+      border: 1px solid #2b4f7a;
+      background: #1b3a6b;
+      color: #e6edf5;
+    }
+
+    .admonition-heading h5 {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #e6edf5;
+    }
+
+    .admonition-icon {
+      display: inline-flex;
+    }
+
+    .admonition-content {
+      margin-top: 0.6rem;
+    }
+
+    .admonition-content > :first-child {
+      margin-top: 0;
+    }
+
+    .admonition-content > :last-child {
+      margin-bottom: 0;
+    }
+
+    .admonition a {
+      color: #e8f1ff;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+    }
+
+    .admonition-warning {
+      border-color: #f59e0b;
+      background: #fef3c7;
+      color: #7a4a00;
+    }
+
+    .admonition-warning .admonition-heading h5 {
+      color: #7a4a00;
+    }
+
+    .admonition-warning a {
+      color: #7a4a00;
+    }
+
     pre {
       @apply focus-visible:border-transparent focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-dashed;
     }

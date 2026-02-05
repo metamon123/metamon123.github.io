@@ -3,6 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
+import remarkAdmonitions from "remark-admonitions";
 import {
   transformerNotationDiff,
   transformerNotationHighlight,
@@ -21,7 +22,23 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    remarkPlugins: [remarkToc, [remarkCollapse, { test: "Table of contents" }]],
+    remarkPlugins: [
+      remarkToc,
+      [remarkCollapse, { test: "Table of contents" }],
+      [
+        remarkAdmonitions,
+        {
+          icons: "emoji",
+          infima: false,
+          customTypes: {
+            note: { keyword: "note", emoji: "💡" },
+            tip: { keyword: "tip", emoji: "✨" },
+            info: { keyword: "info", emoji: "ℹ️" },
+            warning: { keyword: "warning", emoji: "⚠️" },
+          },
+        },
+      ],
+    ],
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
       themes: { light: "min-light", dark: "night-owl" },
