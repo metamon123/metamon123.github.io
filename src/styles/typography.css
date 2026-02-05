@@ -98,51 +98,60 @@
       margin: 1.5rem 0;
       border-radius: 0.75rem;
       padding: 1rem 1.25rem;
-      border: 1px solid #2b4f7a;
-      background: #1b3a6b;
-      color: #e6edf5;
+      border: 1px solid #8faada;
+      background: #dbe8ff;
+      color: #0f223d;
     }
 
-    .admonition-heading h5 {
+    .admonition-heading {
       margin: 0;
       display: flex;
       align-items: center;
       gap: 0.5rem;
       font-size: 0.95rem;
       font-weight: 600;
-      color: #e6edf5;
+      color: #0f223d;
     }
 
     .admonition-icon {
       display: inline-flex;
     }
 
-    .admonition-content {
+    .admonition-heading + * {
       margin-top: 0.6rem;
     }
 
-    .admonition-content > :first-child {
+    .admonition > :first-child {
       margin-top: 0;
     }
 
-    .admonition-content > :last-child {
+    .admonition > :last-child {
       margin-bottom: 0;
     }
 
+    .admonition p,
+    .admonition strong,
+    .admonition ol,
+    .admonition ul,
+    .admonition li,
+    .admonition code {
+      color: #0f223d;
+    }
+
     .admonition a {
-      color: #e8f1ff;
+      color: #123f7a;
       text-decoration: underline;
       text-decoration-style: dotted;
       text-underline-offset: 3px;
     }
 
     .admonition-warning {
-      border-color: #f59e0b;
-      background: #fef3c7;
+      border-color: #f1b44c;
+      background: #fff4d6;
       color: #7a4a00;
     }
 
-    .admonition-warning .admonition-heading h5 {
+    .admonition-warning .admonition-heading {
       color: #7a4a00;
     }
 
@@ -179,5 +188,44 @@
     .highlighted-word {
       @apply rounded-sm border border-border px-0.5 py-px;
     }
+  }
+
+  .toc {
+    @apply rounded-lg border border-border bg-muted/30 p-4 text-sm text-foreground/85;
+  }
+
+  .toc-title {
+    @apply mb-3 text-xs font-semibold tracking-[0.2em] text-foreground/60 uppercase;
+  }
+
+  .toc-list {
+    @apply list-none space-y-2 p-0;
+  }
+
+  .toc-item {
+    @apply leading-snug;
+  }
+
+  .toc-depth-3 {
+    @apply ms-3;
+  }
+
+  .toc-link {
+    @apply text-foreground/80 no-underline hover:text-accent;
+  }
+
+  .toc-inline {
+    display: block;
+  }
+
+  .toc-fixed {
+    position: fixed;
+    top: 6rem;
+    width: 16rem;
+    right: max(1.5rem, calc((100vw - 48rem) / 2 - 16rem - 2rem));
+  }
+
+  .toc-hidden {
+    display: none !important;
   }
 }

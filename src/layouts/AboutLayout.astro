@@ -3,22 +3,73 @@ import type { MarkdownLayoutProps } from "astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
+import TableOfContents from "@/components/TableOfContents.astro";
 import Layout from "./Layout.astro";
 import { SITE } from "@/config";
 
 type Props = MarkdownLayoutProps<{ title: string }>;
 
-const { frontmatter } = Astro.props;
+const { frontmatter, headings = [] } = Astro.props;
+const tocHeadings = headings.filter(
+  (heading: { depth: number }) => heading.depth >= 2 && heading.depth <= 3
+);
 ---
 
 <Layout title={`${frontmatter.title} | ${SITE.title}`}>
   <Header />
   <Breadcrumb />
   <main id="main-content" class="app-layout">
-    <section id="about" class="app-prose mb-28 max-w-app prose-img:border-0">
-      <h1 class="text-2xl tracking-wider sm:text-3xl">{frontmatter.title}</h1>
-      <slot />
+    <section id="about" class="mb-28">
+      <div>
+        <div class="app-prose max-w-none prose-img:border-0" data-toc-content>
+          <h1 class="text-2xl tracking-wider sm:text-3xl">{frontmatter.title}</h1>
+          <div class="mt-6 toc-inline" data-toc-inline>
+            <TableOfContents headings={tocHeadings} />
+          </div>
+          <slot />
+        </div>
+        <aside class="toc-fixed" data-toc-fixed>
+          <TableOfContents headings={tocHeadings} />
+        </aside>
+      </div>
     </section>
   </main>
   <Footer />
 </Layout>
+
+<script>
+  function syncTocVisibility() {
+    const fixed = document.querySelector("[data-toc-fixed]");
+    const inline = document.querySelector("[data-toc-inline]");
+    const content = document.querySelector("[data-toc-content]");
+
+    if (!fixed || !inline || !content) return;
+
+    fixed.classList.remove("toc-hidden");
+    inline.classList.remove("toc-hidden");
+
+    const fixedRect = fixed.getBoundingClientRect();
+    const contentRect = content.getBoundingClientRect();
+    const overlap = fixedRect.left < contentRect.right + 24;
+    const offscreen = fixedRect.right > window.innerWidth - 8;
+
+    if (overlap || offscreen) {
+      fixed.classList.add("toc-hidden");
+      inline.classList.remove("toc-hidden");
+    } else {
+      inline.classList.add("toc-hidden");
+      fixed.classList.remove("toc-hidden");
+    }
+  }
+
+  let rafId = 0;
+  function scheduleTocSync() {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(syncTocVisibility);
+  }
+
+  document.addEventListener("astro:page-load", scheduleTocSync);
+  document.addEventListener("astro:after-swap", scheduleTocSync);
+  window.addEventListener("resize", scheduleTocSync, { passive: true });
+  window.addEventListener("scroll", scheduleTocSync, { passive: true });
+</script>

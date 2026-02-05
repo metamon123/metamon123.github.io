@@ -1,0 +1,32 @@
+---
+type Heading = {
+  depth: number;
+  slug: string;
+  text: string;
+};
+
+type Props = {
+  headings?: Heading[];
+  title?: string;
+};
+
+const { headings = [], title = "목차" } = Astro.props;
+const toc = headings.filter(heading => heading.depth >= 2 && heading.depth <= 3);
+---
+
+{
+  toc.length > 0 && (
+    <nav class="toc not-prose" aria-label="Table of contents">
+      <p class="toc-title">{title}</p>
+      <ul class="toc-list">
+        {toc.map(item => (
+          <li class:list={["toc-item", `toc-depth-${item.depth}`]}>
+            <a class="toc-link" href={`#${item.slug}`}>
+              {item.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
