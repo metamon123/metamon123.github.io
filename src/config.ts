@@ -3,7 +3,7 @@ export const SITE = {
   author: "metamon123",
   profile: "https://github.com/metamon123",
   desc: "IT & Security & Fun by metamon123",
-  title: "📡 10.825 GHz 의 🔒💻",
+  title: "Blog at 10.825 GHz 📡",
   ogImage: "og.png",
   lightAndDarkMode: false,
   postPerIndex: 4,
