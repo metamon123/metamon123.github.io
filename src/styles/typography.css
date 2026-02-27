@@ -188,11 +188,43 @@
       @apply relative inline-block w-full bg-red-500/20 before:absolute before:-left-3 before:text-red-500 before:content-['-'];
     }
     .line.highlighted {
-      @apply inline-block w-full bg-slate-400/20;
+      @apply inline-block w-full;
+      background: rgba(59, 130, 246, 0.18);
     }
     .highlighted-word {
       @apply rounded-sm border border-border px-0.5 py-px;
     }
+  }
+
+  .code-block {
+    margin-block: 1rem !important;
+  }
+
+  .code-block pre {
+    margin: 0 !important;
+  }
+
+  .code-caption {
+    @apply block text-center text-xs font-medium text-foreground/70;
+    font-family: var(--font-app);
+  }
+
+  .code-caption--top {
+    @apply mb-1;
+  }
+
+  .code-caption--bottom {
+    @apply mt-1;
+  }
+
+  pre.code-wrap {
+    overflow-x: hidden;
+  }
+
+  pre.code-wrap code,
+  pre.code-wrap .line {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
   }
 
   .toc {
