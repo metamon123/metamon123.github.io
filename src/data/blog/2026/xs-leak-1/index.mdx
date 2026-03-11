@@ -1,0 +1,40 @@
+---
+author: metamon123
+pubDatetime: 2026-03-07T19:42:57+09:00
+title: "[Study] XS-Leak (Cross-Site Leak) #1"
+slug: study-xs-leak-1
+description: "Cross-Origin 에서 정보를 유출하는 웹해킹 기법인 XS-Leak 을 공부해봤습니다. 부채널은 재밌고 브라우저는 역시나 어렵습니다."
+tags:
+  - web
+  - security
+  - xs-leak
+  - study
+categories:
+  - security
+featured: true
+---
+
+import { Image } from "astro:assets";
+import image1 from "./image-1.png";
+
+## 개요
+
+브라우저 단에서의 Cross-Origin 접근은 매우 민감한 액션입니다. Cross-Origin 접근이 쉽게 가능하다면 유저가 수상한 사이트를 실수로 클릭했을 때, 사이트의 악의적인 스크립트가 유저가 옆에 띄워놓은 포털창에 접근해서 개인정보를 빼내거나 비밀번호를 바꿔버릴 수도 있습니다. 웹 사이트 운영자들이 돈을 벌기 위해 넣는 써드파티 광고가 해당 사이트에 접근하는 유저들을 개인정보를 마음껏 수집해서 큰 프라이버시 문제를 야기할 수도 있습니다.
+
+그래서 브라우저는 Same Origin Policy (SOP) 등의 보안 정책을 통해 Cross-Origin 접근, 특히 Cross-Origin Read 를 제한합니다. 악의적인 사이트에 실수로 들어가버려도 그 사이트는 자신과 다른 주소를 가진 사이트의 정보(e.g., DOM objects)를 읽지 못하고, 무슨 일이 일어나고 있는지 알 수 없습니다. ***일반적으로는 말이죠.***
+
+<figure style={{ maxWidth: "50%", margin: "0 auto" }}>
+  <Image src={image1} alt="우린 답을 찾을 것이다 늘 그랬듯이" style={{ width: "100%", height: "auto" }} />
+  <figcaption>원본: 영화 &lt;인터스텔라&gt; / 각색: ChatGPT, 블로그 주인장</figcaption>
+</figure>
+
+늘 그랬듯이, 해커들은 어떻게든 방법을 찾습니다. 그렇게 <span style="color: red;">SOP 의 Cross-Origin Read 제한을 우회하는 방법</span>으로 제안되는 기법 중 하나가 이 포스트의 주제인 <span style="color: red; font-weight: 700; font-style: italic;">Cross-Site Leak (XS-Leak)</span> 기법입니다. 다른 origin 의 DOM 에 직접 접근하지는 못하지만, 정황 상의 근거를 잘 조합하면 알아낼 수 있는 정보가 있을 것이라는 점에 착안한 기법입니다.
+
+이번 포스트에서는 xs-leak 에 대한 학계의 연구/발표자료를 참고하여 이 기법의 원리와 위험성을 소개하고, 제가 실제 hands-on 을 통해 실습해본 경험을 공유드리려 합니다.
+
+XS-Leak 은 XSS, SQLi 등에 비해 훨씬 낯설고 대응하기도 까다로워서 아직 그 위협이 곳곳에 남아있을 가능성이 높습니다. 그런만큼, 제 포스트를 통해 한 명이라도 더 많은 software/security engineer 분이 xs-leak 를 알게되어 본인의 서비스에의 영향을 생각해봐주신다면 더할 나위가 없을 것 같습니다.
+{/* XS-Leak 이 의외로 간단한데 대응하기 까다로운 위협이라는 점이 전달되면 좋겠습니다. */}
+
+## 개념 소개
+
+### Same Origin Policy (SOP) 와 XS-leak
