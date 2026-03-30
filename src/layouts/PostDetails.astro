@@ -38,7 +38,7 @@ const {
 
 const { Content, headings } = await render(post);
 const tocHeadings = headings.filter(
-  heading => heading.depth >= 2 && heading.depth <= 3
+  heading => heading.depth >= 2 && heading.depth <= 4
 );
 
 let ogImageUrl: string | undefined;

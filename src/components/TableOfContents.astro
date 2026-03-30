@@ -11,7 +11,7 @@ type Props = {
 };
 
 const { headings = [], title = "목차" } = Astro.props;
-const toc = headings.filter(heading => heading.depth >= 2 && heading.depth <= 3);
+const toc = headings.filter(heading => heading.depth >= 2 && heading.depth <= 4);
 ---
 
 {
