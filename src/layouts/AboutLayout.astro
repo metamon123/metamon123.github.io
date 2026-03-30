@@ -11,7 +11,7 @@ type Props = MarkdownLayoutProps<{ title: string }>;
 
 const { frontmatter, headings = [] } = Astro.props;
 const tocHeadings = headings.filter(
-  (heading: { depth: number }) => heading.depth >= 2 && heading.depth <= 3
+  (heading: { depth: number }) => heading.depth >= 2 && heading.depth <= 4
 );
 ---
 

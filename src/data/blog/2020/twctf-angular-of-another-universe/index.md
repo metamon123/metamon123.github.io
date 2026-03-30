@@ -6,7 +6,7 @@ slug: twctf2020-web-angular-of-another-universe
 description: "Participated in TokyoWesternsCTF 2020 as a web hacker of D0G$. Solved web task 'Angular of another universe'. Understood request filtering by different proxies."
 tags:
   - web
-  - wargame
+  - ctf
   - TokyoWesternsCTF 2020
 categories:
   - writeup

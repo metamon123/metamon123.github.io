@@ -247,6 +247,10 @@
     @apply ms-3;
   }
 
+  .toc-depth-4 {
+    @apply ms-6;
+  }
+
   .toc-link {
     @apply text-foreground/80 no-underline hover:text-accent;
   }
